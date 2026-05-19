@@ -20,8 +20,8 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       return;
     }
 
-    const socketUrl = import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000';
-    const newSocket = io(socketUrl, { auth: { token }, transports: ['websocket', 'polling'] });
+    const socketUrl = window.location.origin;
+    const newSocket = io(socketUrl, { path: '/socket.io', auth: { token }, transports: ['websocket', 'polling'] });
 
     newSocket.on('connect', () => setIsConnected(true));
     newSocket.on('disconnect', () => setIsConnected(false));
